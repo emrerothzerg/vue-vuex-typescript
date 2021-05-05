@@ -21,6 +21,7 @@
 <script lang="ts">
 import Counter from "./components/Counter.vue";
 import TotalCounts from "./components/TotalCounts.vue";
+import store from "./store";
 
 export default {
   name: "App",
@@ -30,23 +31,25 @@ export default {
   },
   methods: {
     increment(target: "counter1" | "counter2") {
-      this.$store.direct.dispatch[target].increase();
+      store.dispatch[target].increase();
     },
     decrement(target: "counter1" | "counter2") {
-      this.$store.direct.dispatch[target].decrease();
+      store.dispatch[target].decrease();
     },
     reset(target: "counter1" | "counter2") {
-      this.$store.direct.dispatch[target].reset({
+      store.dispatch[target].reset({
         value: 0,
       });
     },
   },
   computed: {
     total1(): number {
-      return this.$store.direct.getters.counter1.total;
+      const total = store.getters.counter1.total;
+      return total;
     },
     total2(): number {
-      return this.$store.direct.getters.counter2.total;
+      const total = store.getters.counter2.total;
+      return total;
     },
   },
 };
